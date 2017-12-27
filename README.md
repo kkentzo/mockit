@@ -16,10 +16,13 @@ include:
 
 ## Coming up
 
+* http redirect (temporary, permanent)
 * custom response payloads
-* ready-made binaries for download
+* more verbose output
 
 ## Installation
 
 If you have a working Go environment, use `go get
 github.com/kkentzo/mockit`
+
+Ready-made binaries for download coming up...
