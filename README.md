@@ -1,3 +1,5 @@
+[![Travis Build Status](https://travis-ci.org/kkentzo/mockit.svg?branch=master)](https://travis-ci.org/kkentzo/mockit)
+
 # mockit
 
 A utility to quickly mock various aspects of an http endpoint for
