@@ -35,6 +35,7 @@ type Config struct {
 	responseCode int
 	latency      time.Duration
 	headers      Headers
+	verbose      bool
 }
 
 func ParseFromCommandLine(config *Config) {
@@ -44,5 +45,6 @@ func ParseFromCommandLine(config *Config) {
 	flag.IntVar(&config.responseCode, "status", 200, "HTTP Response Status Code")
 	flag.Var(&config.headers, "headers", "HTTP Response Headers (comma-separated)")
 	flag.DurationVar(&config.latency, "latency", 0, "HTTP Response Latency")
+	flag.BoolVar(&config.verbose, "verbose", true, "Activate logging")
 	flag.Parse()
 }
