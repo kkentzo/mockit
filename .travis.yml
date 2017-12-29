@@ -3,6 +3,10 @@ go:
 - 1.8
 - 1.9
 - master
+notifications:
+  email:
+    on_success: never
+    on_failure: always
 install: true
 script:
 - go build -v
