@@ -4,10 +4,16 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
 func mockHandler(w http.ResponseWriter, r *http.Request, config *Config) {
+	// check the HTTP method
+	if r.Method != strings.ToUpper(config.method) {
+		http.NotFound(w, r)
+	}
+	// enforce the latency
 	time.Sleep(config.latency)
 	// write the headers
 	for key, val := range config.headers {

@@ -30,6 +30,7 @@ func (h *Headers) Set(value string) error {
 
 type Config struct {
 	uriPath      string
+	method       string
 	port         int
 	responseCode int
 	latency      time.Duration
@@ -38,6 +39,7 @@ type Config struct {
 
 func ParseFromCommandLine(config *Config) {
 	flag.StringVar(&config.uriPath, "uri", "/", "URI Path")
+	flag.StringVar(&config.method, "method", "GET", "Request HTTP method")
 	flag.IntVar(&config.port, "port", 9999, "HTTP Server Port")
 	flag.IntVar(&config.responseCode, "status", 200, "HTTP Response Status Code")
 	flag.Var(&config.headers, "headers", "HTTP Response Headers (comma-separated)")
