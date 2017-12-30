@@ -28,23 +28,31 @@ func (h *Headers) Set(value string) error {
 	return nil
 }
 
-type Config struct {
+type Listener struct {
 	uriPath      string
 	method       string
-	port         int
 	responseCode int
 	latency      time.Duration
 	headers      Headers
-	verbose      bool
+}
+
+type Config struct {
+	port      int
+	listeners []*Listener
 }
 
 func ParseFromCommandLine(config *Config) {
-	flag.StringVar(&config.uriPath, "uri", "/", "URI Path")
-	flag.StringVar(&config.method, "method", "GET", "Request HTTP method")
+	listener := &Listener{}
+	flag.StringVar(&listener.uriPath, "uri", "/", "URI Path")
+	flag.StringVar(&listener.method, "method", "GET", "Request HTTP method")
+	flag.IntVar(&listener.responseCode, "status", 200, "HTTP Response Status Code")
+	flag.Var(&listener.headers, "headers", "HTTP Response Headers (comma-separated)")
+	flag.DurationVar(&listener.latency, "latency", 0, "HTTP Response Latency")
+
 	flag.IntVar(&config.port, "port", 9999, "HTTP Server Port")
-	flag.IntVar(&config.responseCode, "status", 200, "HTTP Response Status Code")
-	flag.Var(&config.headers, "headers", "HTTP Response Headers (comma-separated)")
-	flag.DurationVar(&config.latency, "latency", 0, "HTTP Response Latency")
-	flag.BoolVar(&config.verbose, "verbose", true, "Activate logging")
+	flag.BoolVar(&verbose, "verbose", true, "Activate logging")
+
 	flag.Parse()
+
+	config.listeners = []*Listener{listener}
 }
