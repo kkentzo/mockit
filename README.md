@@ -22,7 +22,6 @@ Verbose logging is on by default; it can be de-activated using `-verbose=false`.
 
 ## Coming up
 
-* http redirect (temporary, permanent)
 * custom response payloads
 * support multiple endpoints using `yaml` config file
 
