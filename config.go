@@ -32,6 +32,7 @@ type Listener struct {
 	uriPath      string
 	method       string
 	responseCode int
+	responseBody string
 	latency      time.Duration
 	headers      Headers
 }
@@ -46,6 +47,7 @@ func ParseFromCommandLine(config *Config) {
 	flag.StringVar(&listener.uriPath, "uri", "/", "URI Path")
 	flag.StringVar(&listener.method, "method", "GET", "Request HTTP method")
 	flag.IntVar(&listener.responseCode, "status", 200, "HTTP Response Status Code")
+	flag.StringVar(&listener.responseBody, "body", "", "HTTP Response Body")
 	flag.Var(&listener.headers, "headers", "HTTP Response Headers (comma-separated)")
 	flag.DurationVar(&listener.latency, "latency", 0, "HTTP Response Latency")
 

@@ -34,6 +34,8 @@ func mockHandler(w http.ResponseWriter, r *http.Request, listener *Listener) {
 	}
 	// write the response code
 	w.WriteHeader(listener.responseCode)
+	// write the response body
+	w.Write([]byte(listener.responseBody))
 }
 
 func registerHandlers(listener *Listener) {
