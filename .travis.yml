@@ -15,7 +15,10 @@ deploy:
   provider: releases
   api_key:
     secure: sdAeuWoFwr4Fqou9FRrzw9eGuwudPhkF7k9THckRq6oS6oDsSXYfN8XG1eQuqp8WN4c25VYNbxy325HVZ6by5Hfpw2298zFeIKhxlOyJREURY3KjYGojWmTttkJQETCXpC8jHlWNUaw5Ocx7bMJsIvizBHOZD8GMgFSekvaeSrz6LVxmGSqs2GYeD4wczfcuwo/q+WZjvIGlKTiWWzXFpsg3lAOV2f+db/iMHfZ04iHp6XoAVINE0mo9Oy03RBpBz8b5CoZ/Ha87FuTjja/6bXh7N2u8OWkF23oVorXZ0NSW2Vg2vB3o8MERUh+/6hlXNq6T8h9BnkRYJj4ZnUpRgd+3oL5h2f6lkt90Cg0PDN8c86EbvFNj/yucD+h1ktTF1r+VCfoqUWhRKz1UZcN32+Wjr0CPswTwrrOjAzcR/X9T1nU2dpjG6fxTN+lpN+nHGT7XLu18PpbWuuyBWk2XFy/E+YYZ7LjZn8B1lKOjIiAFTXG9c/jAQ2ckk+d78TpYUusQ5GIEL8qLxyYBOxv7WVAkkq8BHbxmBDOrARXUgR5Yi0petA62RL4rOK+QHwwfOqTE/SFwKyrPV1fxsGnYOgnBXxPf7E4ZpF3CAhEqXerKzQMpRglzeT7KTq3bBmQAYUBDi9LmiHkyk43Hqg0JRivIHO1XDPizE4Gk+7a3fuk=
-  file: mockit_*
+  file:
+    - mockit_darwin_amd64
+    - mockit_linux_amd64
+    - mockit_windows_amd64.exe
   skip_cleanup: true
   on:
     tags: true
