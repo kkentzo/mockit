@@ -27,9 +27,8 @@ Verbose logging is on by default; it can be de-activated using `-verbose=false`.
 
 ## Installation
 
-Ready-made binaries
-are [available](https://github.com/kkentzo/mockit/releases)
-(linux-only for the moment - other platforms coming up).
+Ready-made binaries for linux, macOS and windows
+are [available](https://github.com/kkentzo/mockit/releases).
 
 If you have a working Go environment, you can also `go get
 github.com/kkentzo/mockit`.
