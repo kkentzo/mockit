@@ -1,2 +1,4 @@
 mockit*
 *.http
+/vendor
+/TAGS
