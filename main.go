@@ -16,7 +16,7 @@ func logRequest(r *http.Request, status int) {
 
 func mockHandler(w http.ResponseWriter, r *http.Request, listener *Listener) {
 	// check the HTTP method
-	if r.Method != strings.ToUpper(listener.method) {
+	if r.Method != strings.ToUpper(listener.Method) {
 		if verbose {
 			logRequest(r, 404)
 		}
@@ -24,27 +24,27 @@ func mockHandler(w http.ResponseWriter, r *http.Request, listener *Listener) {
 		return
 	}
 	if verbose {
-		logRequest(r, listener.responseCode)
+		logRequest(r, listener.ResponseCode)
 	}
 	// enforce the latency
-	time.Sleep(listener.latency)
+	time.Sleep(listener.Latency)
 	// write the headers
-	for key, val := range listener.headers {
+	for key, val := range listener.Headers {
 		w.Header().Set(key, val)
 	}
 	// write the response code
-	w.WriteHeader(listener.responseCode)
+	w.WriteHeader(listener.ResponseCode)
 	// write the response body
-	w.Write([]byte(listener.responseBody))
+	w.Write([]byte(listener.ResponseBody))
 }
 
 func registerHandlers(listener *Listener) {
-	http.HandleFunc(listener.uriPath, func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc(listener.UriPath, func(w http.ResponseWriter, r *http.Request) {
 		mockHandler(w, r, listener)
 	})
 	if verbose {
 		log.Printf("Listening: %s [method:%s|latency:%v]",
-			listener.uriPath, listener.method, listener.latency)
+			listener.UriPath, listener.Method, listener.Latency)
 	}
 }
 
@@ -52,14 +52,13 @@ func main() {
 	// do not print date/time info when logging
 	log.SetFlags(0)
 
-	config := &Config{}
-	ParseFromCommandLine(config)
+	config := CreateConfig()
 
 	if verbose {
 		log.Printf("Server listens on port %d", config.port)
 	}
 
-	for _, listener := range config.listeners {
+	for _, listener := range config.listeners.Listeners {
 		registerHandlers(listener)
 	}
 
