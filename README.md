@@ -27,20 +27,22 @@ source code, you can also `go get github.com/kkentzo/mockit`.
 
 ## Usage
 
-Stuff that can be mocked as command-line arguments to `mockit`
-include:
+`mockit` works by defining one or more listeners each characterized by
+the certain properties. A single listener can be specified using the
+command line using the following arguments:
 
-* the URI path (e.g. `-uri /a/random/path`)
-* the requested HTTP method (e.g. `-method POST`)
-* the server's port (e.g. `-port 9898`)
-* the status code of the response (e.g. `-status 401`)
-* the payload of the response (e.g. `-body hello`)
-* the latency of the response (e.g. `-latency 2s`)
-* the response headers (comma-separated, e.g. `-headers
+* URI path (e.g. `-uri /a/random/path`)
+* requested HTTP method (e.g. `-method POST`)
+* status code of the response (e.g. `-status 401`)
+* payload of the response (e.g. `-body hello`)
+* latency of the response (e.g. `-latency 2s`)
+* response headers (comma-separated, e.g. `-headers
   foo:bar,content-type:application/json`)
 
-Verbose logging is on by default; it can be de-activated using `-verbose=false`.
+The port to which the server binds can be specified using `-port`
+(e.g. `-port 8888`). The default value is 9999.
 
-## Coming up
-
-* support multiple endpoints using `yaml` config file
+Multiple listeners on the same port are supported through a `yml`
+configuration file (see example [here](sample.yml)). The configuration
+file path can be passed to `mockit` using the `-config PATH_TO_FILE`
+argument.
