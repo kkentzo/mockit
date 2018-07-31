@@ -1,0 +1,17 @@
+listeners:
+  - uri_path: /hello
+    method: GET
+    response_code: 200
+    response_body: "{msg:\"hello there\"}"
+    latency: 0
+    headers:
+      Content-Type: application/json
+      foo: bar
+      a: b
+  - uri_path: /goodbye
+    method: POST
+    response_code: 201
+    latency: 100ms
+    headers:
+      Content-Type: application/xml
+      alpha: beta

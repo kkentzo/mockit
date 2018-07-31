@@ -1,4 +1,0 @@
-listeners:
-  - uri_path:
-    method: GET
-    responseCode: 200

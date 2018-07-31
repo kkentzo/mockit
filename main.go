@@ -8,8 +8,6 @@ import (
 	"time"
 )
 
-var verbose bool = true
-
 func logRequest(r *http.Request, status int) {
 	log.Printf("%s %s => %d", r.Method, r.RequestURI, status)
 }
@@ -17,15 +15,11 @@ func logRequest(r *http.Request, status int) {
 func mockHandler(w http.ResponseWriter, r *http.Request, listener *Listener) {
 	// check the HTTP method
 	if r.Method != strings.ToUpper(listener.Method) {
-		if verbose {
-			logRequest(r, 404)
-		}
+		logRequest(r, 404)
 		http.NotFound(w, r)
 		return
 	}
-	if verbose {
-		logRequest(r, listener.ResponseCode)
-	}
+	logRequest(r, listener.ResponseCode)
 	// enforce the latency
 	time.Sleep(listener.Latency)
 	// write the headers
@@ -42,10 +36,8 @@ func registerHandlers(listener *Listener) {
 	http.HandleFunc(listener.UriPath, func(w http.ResponseWriter, r *http.Request) {
 		mockHandler(w, r, listener)
 	})
-	if verbose {
-		log.Printf("Listening: %s [method:%s|latency:%v]",
-			listener.UriPath, listener.Method, listener.Latency)
-	}
+	log.Printf("Listening: %s [method:%s|latency:%v]",
+		listener.UriPath, listener.Method, listener.Latency)
 }
 
 func main() {
@@ -54,9 +46,7 @@ func main() {
 
 	config := CreateConfig()
 
-	if verbose {
-		log.Printf("Server listens on port %d", config.port)
-	}
+	log.Printf("Server listens on port %d", config.port)
 
 	for _, listener := range config.listeners.Listeners {
 		registerHandlers(listener)

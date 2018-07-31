@@ -77,7 +77,6 @@ func CreateConfig() *Config {
 	listener := &Listener{}
 	flag.StringVar(&config.file, "config", "", "Path to configuration file")
 	flag.IntVar(&config.port, "port", 9999, "HTTP Server Port")
-	flag.BoolVar(&verbose, "verbose", true, "Activate logging")
 
 	flag.StringVar(&listener.UriPath, "uri", "/", "URI Path")
 	flag.StringVar(&listener.Method, "method", "GET", "Request HTTP method")
