@@ -1,5 +1,6 @@
 * Tasks
 ** TODO Update go version of travis release artifacts
+** TODO Write tests
 ** DONE multiple endpoints using configuration yml
    CLOSED: [2018-07-31 Tue 23:38]
    - State "DONE"       from "TODO"       [2018-07-31 Tue 23:38]
