@@ -1,0 +1,14 @@
+* Tasks
+** TODO Update go version of travis release artifacts
+** DONE multiple endpoints using configuration yml
+   CLOSED: [2018-07-31 Tue 23:38]
+   - State "DONE"       from "TODO"       [2018-07-31 Tue 23:38]
+** DONE Release for all platforms (linux, macosx, win)
+** DONE implement response payload
+** DONE add user-specified headers to response
+** DONE headers should be a map (not slice)
+** DONE implement request verb
+** REJECTED implement redirection
+   already implemented using `status` and `headers`
+** DONE more verbose output
+** DONE use travis for releasing binary to github
