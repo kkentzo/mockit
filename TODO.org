@@ -1,5 +1,7 @@
 * Tasks
+** TODO Prevent multple registrations of the same path
 ** TODO Update go version of travis release artifacts
+** Write proxy listener (?)
 ** TODO Write tests
 ** DONE multiple endpoints using configuration yml
    CLOSED: [2018-07-31 Tue 23:38]
