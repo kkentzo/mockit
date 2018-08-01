@@ -4,32 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"log"
-	"strings"
 	"time"
 
 	yaml "gopkg.in/yaml.v2"
 )
-
-type Headers map[string]string
-
-func (h *Headers) String() string {
-	return fmt.Sprint(*h)
-}
-
-func (h *Headers) Set(value string) error {
-	if *h == nil {
-		*h = make(Headers)
-	}
-	for _, keyVal := range strings.Split(value, ",") {
-		tokens := strings.SplitN(keyVal, ":", 2)
-		if len(tokens) != 2 {
-			log.Fatalf("Invalid header specified: %s", keyVal)
-		}
-		(*h)[tokens[0]] = tokens[1]
-	}
-	return nil
-}
 
 type Listeners struct {
 	Listeners []*Listener `yaml:"listeners"`
@@ -62,5 +40,6 @@ func NewListenersFromFile(file string) (*Listeners, error) {
 				errors.New(fmt.Sprintf("Empty listener uri_path in file %s. Aborting.", file))
 		}
 	}
+	// TODO: prevent mult regs of the same path
 	return listeners, nil
 }
