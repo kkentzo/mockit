@@ -13,6 +13,7 @@ install:
 script:
 - go get github.com/mitchellh/gox
 - gox -osarch="darwin/amd64 linux/amd64 windows/amd64"
+- go test -v -cover
 deploy:
   provider: releases
   api_key:
