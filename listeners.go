@@ -33,13 +33,21 @@ func NewListenersFromFile(file string) (*Listeners, error) {
 		return nil, err
 
 	}
-	// verify listeners
+	return listeners, listeners.Validate()
+}
+
+func (listeners *Listeners) Validate() error {
+	paths := make(map[string]bool)
 	for _, listener := range listeners.Listeners {
 		if listener.UriPath == "" {
-			return listeners,
-				errors.New(fmt.Sprintf("Empty listener uri_path in file %s. Aborting.", file))
+			return errors.New("Empty uri_path in listener")
+		}
+		// make sure that no path is defined twice
+		if _, ok := paths[listener.UriPath]; ok {
+			return errors.New(fmt.Sprintf("Path %s already defined", listener.UriPath))
+		} else {
+			paths[listener.UriPath] = true
 		}
 	}
-	// TODO: prevent mult regs of the same path
-	return listeners, nil
+	return nil
 }
