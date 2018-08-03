@@ -2,3 +2,4 @@ mockit*
 *.http
 /vendor
 /TAGS
+*.out
