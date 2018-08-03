@@ -1,8 +1,8 @@
 * Tasks
+** TODO Update go version of travis release artifacts and release!
+** TODO Check test http server's port
 ** DONE Prevent multiple registrations of the same path
-** TODO Update go version of travis release artifacts
-** Write proxy listener (?)
-** TODO Write tests
+** DONE Write tests
 ** DONE multiple endpoints using configuration yml
 ** DONE Release for all platforms (linux, macosx, win)
 ** DONE implement response payload
