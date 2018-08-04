@@ -1,5 +1,5 @@
 * Tasks
-** TODO Update go version of travis release artifacts and release!
+** DONE Update go version of travis release artifacts and release!
 ** DONE Assign a random port to test http servers
 ** DONE Prevent multiple registrations of the same path
 ** DONE Write tests
