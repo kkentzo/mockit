@@ -1,6 +1,6 @@
 * Tasks
 ** TODO Update go version of travis release artifacts and release!
-** TODO Check test http server's port
+** DONE Assign a random port to test http servers
 ** DONE Prevent multiple registrations of the same path
 ** DONE Write tests
 ** DONE multiple endpoints using configuration yml

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"net"
 	"net/http"
 	"testing"
 
@@ -16,17 +17,15 @@ func Test_Register_WillSetupHandler(t *testing.T) {
 		Headers:      Headers{"a": "b"},
 	}
 	mux := http.NewServeMux()
-	srv := &http.Server{
-		// TODO: how to select a free port for the http server?
-		Addr:    ":32456",
-		Handler: mux,
-	}
-	defer srv.Close()
+	l, err := net.Listen("tcp", ":0")
+	assert.Nil(t, err)
 
 	Register(listener, mux)
-	go srv.ListenAndServe()
+	go http.Serve(l, mux)
 
-	req, _ := http.NewRequest("GET", "http://localhost:32456/test", nil)
+	port := l.Addr().(*net.TCPAddr).Port
+	path := fmt.Sprintf("http://localhost:%d/test", port)
+	req, _ := http.NewRequest("GET", path, nil)
 	client := &http.Client{}
 	res, err := client.Do(req)
 	// TODO: getting connection refuse here
