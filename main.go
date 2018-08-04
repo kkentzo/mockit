@@ -19,8 +19,8 @@ func main() {
 		Addr:    fmt.Sprintf(":%d", config.port),
 		Handler: mux,
 	}
-	for _, listener := range config.listeners.Listeners {
-		Register(listener, mux)
+	for _, endpoint := range config.endpoints.Endpoints {
+		Register(endpoint, mux)
 	}
 
 	// start the server

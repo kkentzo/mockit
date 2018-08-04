@@ -10,7 +10,7 @@ import (
 )
 
 func Test_Register_WillSetupHandler(t *testing.T) {
-	listener := &Listener{
+	endpoint := &Endpoint{
 		UriPath:      "/test",
 		Method:       "GET",
 		ResponseCode: 200,
@@ -20,7 +20,7 @@ func Test_Register_WillSetupHandler(t *testing.T) {
 	l, err := net.Listen("tcp", ":0")
 	assert.Nil(t, err)
 
-	Register(listener, mux)
+	Register(endpoint, mux)
 	go http.Serve(l, mux)
 
 	port := l.Addr().(*net.TCPAddr).Port

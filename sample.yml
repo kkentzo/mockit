@@ -1,4 +1,4 @@
-listeners:
+endpoints:
   - uri_path: /hello
     method: GET
     response_code: 200

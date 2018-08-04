@@ -16,20 +16,20 @@ func TouchFile(t *testing.T, fname string) *os.File {
 	return f
 }
 
-func Test_NewListenersFromFile_WhenFileDoesNotExist(t *testing.T) {
+func Test_NewEndpointsFromFile_WhenFileDoesNotExist(t *testing.T) {
 	path, err := ioutil.TempDir("", "tagger-tests")
 	assert.Nil(t, err)
 	defer os.RemoveAll(path)
 
 	fname := filepath.Join(path, "non_existent.yml")
 
-	listeners, err := NewListenersFromFile(fname)
-	assert.Nil(t, listeners)
+	endpoints, err := NewEndpointsFromFile(fname)
+	assert.Nil(t, endpoints)
 	assert.NotNil(t, err)
 	assert.Contains(t, err.Error(), "no such file")
 }
 
-func Test_NewListenersFromFile_WhenUnmarshalFails(t *testing.T) {
+func Test_NewEndpointsFromFile_WhenUnmarshalFails(t *testing.T) {
 	path, err := ioutil.TempDir("", "tagger-tests")
 	assert.Nil(t, err)
 	defer os.RemoveAll(path)
@@ -39,17 +39,17 @@ func Test_NewListenersFromFile_WhenUnmarshalFails(t *testing.T) {
 	f.Write([]byte("invalid:yml"))
 	f.Close()
 
-	listeners, err := NewListenersFromFile(fname)
-	assert.Nil(t, listeners)
+	endpoints, err := NewEndpointsFromFile(fname)
+	assert.Nil(t, endpoints)
 	assert.NotNil(t, err)
 	assert.Contains(t, err.Error(), "unmarshal errors")
 }
 
-func Test_NewListenersFromFile_SetupTheListeners(t *testing.T) {
-	listeners, err := NewListenersFromFile("sample.yml")
+func Test_NewEndpointsFromFile_SetupTheEndpoints(t *testing.T) {
+	endpoints, err := NewEndpointsFromFile("sample.yml")
 	assert.Nil(t, err)
-	assert.Equal(t, 2, len(listeners.Listeners))
-	l := listeners.Listeners[0]
+	assert.Equal(t, 2, len(endpoints.Endpoints))
+	l := endpoints.Endpoints[0]
 	assert.Equal(t, "/hello", l.UriPath)
 	assert.Equal(t, "GET", l.Method)
 	assert.Equal(t, 200, l.ResponseCode)
@@ -59,7 +59,7 @@ func Test_NewListenersFromFile_SetupTheListeners(t *testing.T) {
 	assert.Equal(t, "application/json", l.Headers["Content-Type"])
 	assert.Equal(t, "bar", l.Headers["foo"])
 	assert.Equal(t, "b", l.Headers["a"])
-	l = listeners.Listeners[1]
+	l = endpoints.Endpoints[1]
 	assert.Equal(t, "/goodbye", l.UriPath)
 	assert.Equal(t, "POST", l.Method)
 	assert.Equal(t, 201, l.ResponseCode)
@@ -70,21 +70,21 @@ func Test_NewListenersFromFile_SetupTheListeners(t *testing.T) {
 	assert.Equal(t, "beta", l.Headers["alpha"])
 }
 
-func Test_Listeners_Validate_When_PathIsEmpty(t *testing.T) {
-	listeners := &Listeners{Listeners: []*Listener{&Listener{}}}
-	err := listeners.Validate()
+func Test_Endpoints_Validate_When_PathIsEmpty(t *testing.T) {
+	endpoints := &Endpoints{Endpoints: []*Endpoint{&Endpoint{}}}
+	err := endpoints.Validate()
 	assert.NotNil(t, err)
 	assert.Contains(t, err.Error(), "Empty uri_path")
 }
 
-func Test_Listeners_Validate_When_DuplicatePathsExist(t *testing.T) {
-	listeners := &Listeners{
-		Listeners: []*Listener{
-			&Listener{UriPath: "foo"},
-			&Listener{UriPath: "foo"},
+func Test_Endpoints_Validate_When_DuplicatePathsExist(t *testing.T) {
+	endpoints := &Endpoints{
+		Endpoints: []*Endpoint{
+			&Endpoint{UriPath: "foo"},
+			&Endpoint{UriPath: "foo"},
 		},
 	}
-	err := listeners.Validate()
+	err := endpoints.Validate()
 	assert.NotNil(t, err)
 	assert.Equal(t, err.Error(), "Path foo already defined")
 }

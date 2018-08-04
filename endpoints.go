@@ -9,11 +9,11 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-type Listeners struct {
-	Listeners []*Listener `yaml:"listeners"`
+type Endpoints struct {
+	Endpoints []*Endpoint `yaml:"endpoints"`
 }
 
-type Listener struct {
+type Endpoint struct {
 	UriPath      string        `yaml:"uri_path"`
 	Method       string        `yaml:"method"`
 	ResponseCode int           `yaml:"response_code"`
@@ -22,31 +22,31 @@ type Listener struct {
 	Headers      Headers       `yaml:"headers"`
 }
 
-func NewListenersFromFile(file string) (*Listeners, error) {
+func NewEndpointsFromFile(file string) (*Endpoints, error) {
 	contents, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
 	}
-	listeners := &Listeners{}
-	err = yaml.Unmarshal(contents, listeners)
+	endpoints := &Endpoints{}
+	err = yaml.Unmarshal(contents, endpoints)
 	if err != nil {
 		return nil, err
 
 	}
-	return listeners, listeners.Validate()
+	return endpoints, endpoints.Validate()
 }
 
-func (listeners *Listeners) Validate() error {
+func (endpoints *Endpoints) Validate() error {
 	paths := make(map[string]bool)
-	for _, listener := range listeners.Listeners {
-		if listener.UriPath == "" {
-			return errors.New("Empty uri_path in listener")
+	for _, endpoint := range endpoints.Endpoints {
+		if endpoint.UriPath == "" {
+			return errors.New("Empty uri_path in endpoint")
 		}
 		// make sure that no path is defined twice
-		if _, ok := paths[listener.UriPath]; ok {
-			return errors.New(fmt.Sprintf("Path %s already defined", listener.UriPath))
+		if _, ok := paths[endpoint.UriPath]; ok {
+			return errors.New(fmt.Sprintf("Path %s already defined", endpoint.UriPath))
 		} else {
-			paths[listener.UriPath] = true
+			paths[endpoint.UriPath] = true
 		}
 	}
 	return nil

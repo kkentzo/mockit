@@ -27,8 +27,8 @@ source code, you can also `go get github.com/kkentzo/mockit`.
 
 ## Usage
 
-`mockit` works by defining one or more listeners each characterized by
-the certain properties. A single listener can be specified using the
+`mockit` works by defining one or more endpoints each characterized by
+the certain properties. A single endpoint can be specified using the
 command line using the following arguments:
 
 * URI path (e.g. `-uri /a/random/path`)
@@ -42,7 +42,7 @@ command line using the following arguments:
 The port to which the server binds can be specified using `-port`
 (e.g. `-port 8888`). The default value is 9999.
 
-Multiple listeners on the same port are supported through a `yml`
+Multiple endpoints on the same port are supported through a `yml`
 configuration file (see example [here](sample.yml)). The configuration
 file path can be passed to `mockit` using the `-config PATH_TO_FILE`
 argument.
